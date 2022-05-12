@@ -1,6 +1,6 @@
 # AutomateWoo SendInBlue Add-on
 
-This plugin is an addon for [AutomateWoo](https://automatewoo.com). The purpose of this add-on is to add an integration
+This WordPress plugin is an addon for [AutomateWoo](https://automatewoo.com). The purpose of this add-on is to add an integration
 with SendInBlue to AutomateWoo.
 
 ## Installation
