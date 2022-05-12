@@ -1,7 +1,6 @@
 <?php
 /**
  * Plugin Name: AutomateWoo - SendInBlue Add-on
- * Plugin URI: https://stickypages.ca
  * Description: SendInBlue Integration add-on for AutomateWoo / Elementor.
  * Version: 1.0.0
  * Author: StickyPages
