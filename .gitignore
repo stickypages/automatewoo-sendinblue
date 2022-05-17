@@ -1,6 +1,0 @@
-node_modules
-.sass-cache
-package-lock.json
-vendor
-/dist
-/languages/*.mo
