@@ -1,13 +1,16 @@
 <?php
 
-namespace AutomateWoo;
+namespace StickyBlueAutomateWoo;
+
+use AutomateWoo\Fields;
+use AutomateWoo\Clean;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * @class Action_SendInBlue_Add_Note
+ * @class Action_StickyBlue_Add_Note
  */
-class Action_SendInBlue_Add_Note extends Action_SendInBlue_Abstract {
+class Action_StickyBlue_Add_Note extends Action_StickyBlue_Abstract {
 
 
 	public function load_admin_details() {

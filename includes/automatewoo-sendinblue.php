@@ -6,16 +6,18 @@ if ( ! class_exists( 'AutomateWoo\Addon' ) ) {
 	include WP_PLUGIN_DIR . '/automatewoo/includes/abstracts/addon.php';
 }
 
-class AW_SendInBlue_Addon extends AutomateWoo\Addon {
+class AW_StickyBlue_Addon extends AutomateWoo\Addon {
 
-	/** @var AW_SendInBlue_Options */
+	/** @var AW_StickyBlue_Options */
 	private $options;
 
-	/** @var AW_SendInBlue_Admin */
+	/** @var AW_StickyBlue_Admin */
 	public $admin;
 
-	/** @var AutomateWoo\SendInBlue\API */
+	/** @var StickyBlueAutomateWoo\API */
 	private $api;
+
+    public $api_key;
 
 
 	/**
@@ -33,10 +35,10 @@ class AW_SendInBlue_Addon extends AutomateWoo\Addon {
 
 		$this->includes();
 
-		new AW_SendInBlue_Workflows();
+		new AW_StickyBlue_Workflows();
 
 		if ( is_admin() ) {
-			$this->admin = new AW_SendInBlue_Admin();
+			$this->admin = new AW_StickyBlue_Admin();
 		}
 
 		do_action( 'automatewoo/SendInBlue/after_init' );
@@ -58,12 +60,12 @@ class AW_SendInBlue_Addon extends AutomateWoo\Addon {
 
 
 	/**
-	 * @return AW_SendInBlue_Options
+	 * @return AW_StickyBlue_Options
 	 */
 	public function options() {
 		if ( ! isset( $this->options ) ) {
 			include_once $this->path( '/includes/options.php' );
-			$this->options = new AW_SendInBlue_Options();
+			$this->options = new AW_StickyBlue_Options();
 		}
 
 		return $this->options;
@@ -71,23 +73,17 @@ class AW_SendInBlue_Addon extends AutomateWoo\Addon {
 
 
 	/**
-	 * @return AutomateWoo\SendInBlue\API|false
+	 * @return StickyBlueAutomateWoo\StickyBlue\API|false
 	 */
 	public function api() {
 		if ( ! isset( $this->api ) ) {
 			include_once $this->path( '/includes/api.php' );
+            $this->api = false;
 
-			// $api_domain = AutomateWoo\Clean::string( $this->options()->api_domain );
-			// $api_email = AutomateWoo\Clean::string( $this->options()->api_email );
-			$api_key = AutomateWoo\Clean::string( $this->options()->api_key );
+            $this->api_key = AutomateWoo\Clean::string( $this->options()->api_key );
 
-			// $api_domain = str_replace( [ 'http://', 'https://' ], '', $api_domain );
-
-			if ( $api_key ) {
-				$this->api = new AutomateWoo\SendInBlue\API( $api_key );
-			}
-			else {
-				$this->api = false;
+			if ( $this->api_key ) {
+				$this->api = new StickyBlueAutomateWoo\API( $this->api_key );
 			}
 		}
 
@@ -95,7 +91,7 @@ class AW_SendInBlue_Addon extends AutomateWoo\Addon {
 	}
 
 
-	/** @var AW_SendInBlue_Addon */
+	/** @var AW_StickyBlue_Addon */
 	protected static $_instance;
 
 
@@ -103,9 +99,9 @@ class AW_SendInBlue_Addon extends AutomateWoo\Addon {
 
 
 /**
- * @return AW_SendInBlue_Addon
+ * @return AW_StickyBlue_Addon
  */
 function AW_SendInBlue() {
-	return AW_SendInBlue_Addon::instance( new AW_SendInBlue_Plugin_Data() );
+	return AW_StickyBlue_Addon::instance( new AW_StickyBlue_Plugin_Data() );
 }
 AW_SendInBlue();

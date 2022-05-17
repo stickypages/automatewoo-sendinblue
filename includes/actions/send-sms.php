@@ -1,13 +1,16 @@
 <?php
 
-namespace AutomateWoo;
+namespace StickyBlueAutomateWoo;
+
+use AutomateWoo\Fields;
+use AutomateWoo\Clean;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * @class Action_SendInBlue_Add_Contact
+ * @class Action_StickyBlue_Add_Contact
  */
-class Action_SendInBlue_Send_SMS extends Action_SendInBlue_Abstract {
+class Action_StickyBlue_Send_SMS extends Action_StickyBlue_Abstract {
 
 
 	public function load_admin_details() {
@@ -49,7 +52,8 @@ class Action_SendInBlue_Send_SMS extends Action_SendInBlue_Abstract {
 
 
 	function run() {
-        $sender = Clean::email( $this->get_option( 'sender', true ) );
+        $sender = Clean::string( $this->get_option( 'sender', true ) );
+        $sender = substr(preg_replace("/[^A-Za-z0-9]/", "", $sender), 0, 11);
         $recipient = Clean::string( $this->get_option( 'recipient', true ) );
         $content = Clean::string( $this->get_option( 'content', true ) );
         $tag = Clean::string( $this->get_option( 'tag', true ) );
@@ -57,7 +61,6 @@ class Action_SendInBlue_Send_SMS extends Action_SendInBlue_Abstract {
 		if ( empty( $sender ) || empty( $recipient ) || empty( $content ) || ! AW_SendInBlue()->api() ) {
 			return;
 		}
-
         $sms = [];
         $method = 'POST';
         $endpoint = '/transactionalSMS/sms';
@@ -70,6 +73,6 @@ class Action_SendInBlue_Send_SMS extends Action_SendInBlue_Abstract {
         if ( $tag ) $sms['tag'] = $tag;
 
 		$response = AW_SendInBlue()->api()->request( $method, $endpoint, $sms );
+        error_log(print_r($response, true));
 	}
-
 }

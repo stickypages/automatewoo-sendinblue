@@ -1,11 +1,11 @@
 <?php
 /**
- * @class AW_SendInBlue_Admin
+ * @class AW_StickyBlue_Admin
  */
-class AW_SendInBlue_Admin {
+class AW_StickyBlue_Admin {
 
 
-	function __construct() {
+    function __construct() {
 		add_filter( 'automatewoo/settings/tabs', [ $this, 'settings_tab' ] );
 	}
 

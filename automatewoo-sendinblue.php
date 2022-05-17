@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: AutomateWoo - SendInBlue Add-on
+ * Plugin Name: Sticky Blue
  * Description: SendInBlue Integration add-on for AutomateWoo / Elementor.
  * Version: 1.0.0
  * Author: StickyPages
@@ -28,9 +28,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 
 /**
- * @class AW_SendInBlue_Plugin_Data
+ * @class AW_StickyBlue_Plugin_Data
  */
-class AW_SendInBlue_Plugin_Data {
+class AW_StickyBlue_Plugin_Data {
 
 	function __construct() {
 		$this->id = 'automatewoo-sendinblue';
@@ -46,18 +46,18 @@ class AW_SendInBlue_Plugin_Data {
 
 
 /**
- * @class AW_SendInBlue_Loader
+ * @class AW_StickyBlue_Loader
  */
-class AW_SendInBlue_Loader {
+class AW_StickyBlue_Loader {
 
-	/** @var AW_SendInBlue_Plugin_Data */
+	/** @var AW_StickyBlue_Plugin_Data */
 	static $data;
 
 	static $errors = array();
 
 
 	/**
-	 * @param AW_SendInBlue_Plugin_Data $data
+	 * @param AW_StickyBlue_Plugin_Data $data
 	 */
 	static function init( $data ) {
 		self::$data = $data;
@@ -71,7 +71,20 @@ class AW_SendInBlue_Loader {
 	static function load() {
 		self::check();
 		if ( empty( self::$errors ) ) {
-			include 'includes/automatewoo-sendinblue.php';
+            // AutomateWoo Integration
+			include __DIR__ .'/includes/automatewoo-sendinblue.php';
+
+            // Elementor Form Integration
+            add_action( 'elementor_pro/init', function() {
+                // Here it's safe to include our action class file
+                include_once __DIR__ .'/includes/elementor/elementor-sendinblue.php';
+
+                // Instantiate the action class
+                $sendinblue_action = new StickyBlue_Action_After_Submit();
+
+                // Register the action with form widget
+                \ElementorPro\Plugin::instance()->modules_manager->get_modules( 'forms' )->add_form_action( $sendinblue_action->get_name(), $sendinblue_action );
+            });
 		}
 	}
 
@@ -143,12 +156,12 @@ class AW_SendInBlue_Loader {
 
 	static function admin_notices() {
 		if ( empty( self::$errors ) ) return;
-		echo '<div class="notice notice-error"><p>';
-		echo implode( '<br>', self::$errors );
-		echo '</p></div>';
+		echo esc_html('<div class="notice notice-error"><p>');
+		echo esc_html(implode( '<br>', self::$errors ));
+		echo esc_html('</p></div>');
 	}
 
 
 }
 
-AW_SendInBlue_Loader::init( new AW_SendInBlue_Plugin_Data() );
+AW_StickyBlue_Loader::init( new AW_StickyBlue_Plugin_Data() );

@@ -1,13 +1,16 @@
 <?php
 
-namespace AutomateWoo;
+namespace StickyBlueAutomateWoo;
+
+use AutomateWoo\Fields;
+use AutomateWoo\Clean;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * @class Action_SendInBlue_Add_Contact
+ * @class Action_StickyBlue_Add_Contact
  */
-class Action_SendInBlue_Add_Contact extends Action_SendInBlue_Abstract {
+class Action_StickyBlue_Add_Contact extends Action_StickyBlue_Abstract {
 
 
 	public function load_admin_details() {

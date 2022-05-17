@@ -1,4 +1,4 @@
-# AutomateWoo SendInBlue Add-on
+# Sticky Blue, AutomateWoo SendInBlue Add-on
 
 This WordPress plugin is an addon for [AutomateWoo](https://automatewoo.com). The purpose of this add-on is to add an integration
 with SendInBlue to AutomateWoo.

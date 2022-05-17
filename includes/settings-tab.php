@@ -1,6 +1,6 @@
 <?php
 
-namespace AutomateWoo\SendInBlue;
+namespace StickyBlueAutomateWoo;
 
 use AutomateWoo\Admin_Settings_Tab_Abstract;
 
@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 
 /**
- * @class AW_SendInBlue_Settings_Tab
+ * @class AW_StickyBlue_Settings_Tab
  */
 class Settings_Tab extends Admin_Settings_Tab_Abstract {
 
@@ -16,7 +16,7 @@ class Settings_Tab extends Admin_Settings_Tab_Abstract {
 	public $show_tab_title = false;
 
 	/** @var string  */
-	public $prefix = 'aw_SendInBlue_';
+	public $prefix = 'aw_StickyBlue_';
 
 
 	public function __construct() {

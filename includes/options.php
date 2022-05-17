@@ -3,16 +3,16 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * @class AW_SendInBlue_Options
+ * @class AW_StickyBlue_Options
  *
  * @property string $api_domain
  * @property string $api_email
  * @property string $api_key
  */
-class AW_SendInBlue_Options extends AutomateWoo\Options_API {
+class AW_StickyBlue_Options extends AutomateWoo\Options_API {
 
 	/** @var string */
-	public $prefix = 'aw_SendInBlue_';
+	public $prefix = 'aw_StickyBlue_';
 
 
 	public function __construct() {

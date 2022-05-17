@@ -1,13 +1,18 @@
 <?php
 
-namespace AutomateWoo;
+namespace StickyBlueAutomateWoo;
+
+use AutomateWoo\Action;
+use AutomateWoo\Fields;
+use AutomateWoo\Clean;
+
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * @class Action_SendInBlue_Abstract
+ * @class Action_StickyBlue_Abstract
  */
-abstract class Action_SendInBlue_Abstract extends Action {
+abstract class Action_StickyBlue_Abstract extends Action {
 
 	/**
 	 * Get action group.

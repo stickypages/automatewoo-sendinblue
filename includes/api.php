@@ -1,6 +1,6 @@
 <?php
 
-namespace AutomateWoo\SendInBlue;
+namespace StickyBlueAutomateWoo;
 
 use AutomateWoo\Clean;
 use AutomateWoo\Integration;
@@ -21,7 +21,7 @@ class API extends Integration {
 	private $api_email;
 
 	/** @var string */
-	private $api_key;
+	public $api_key;
 
 	/** @var string  */
 	private $api_root = 'https://api.sendinblue.com/v3';
@@ -34,8 +34,6 @@ class API extends Integration {
 	 */
 	function __construct( $api_key ) {
 		$this->api_key = $api_key;
-		// $this->api_email = $api_email;
-		// $this->api_root = str_replace( '<domain>', $api_domain, $this->api_root );
 	}
 
 
@@ -168,7 +166,7 @@ class API extends Integration {
 		if ( ! $id ) {
 			$id = '204'; // no matching contact
 		}
-		set_transient( 'aw_SendInBlue_contact_id_' . md5( $this->parse_email( $email ) ), $id, HOUR_IN_SECONDS * 2 );
+		set_transient( 'aw_StickyBlue_contact_id_' . md5( $this->parse_email( $email ) ), $id, HOUR_IN_SECONDS * 2 );
 	}
 
 
@@ -177,7 +175,7 @@ class API extends Integration {
 	 * @return string|false
 	 */
 	function get_contact_id_cache( $email ) {
-		return get_transient( 'aw_SendInBlue_contact_id_' . md5( $this->parse_email( $email ) ) );
+		return get_transient( 'aw_StickyBlue_contact_id_' . md5( $this->parse_email( $email ) ) );
 	}
 
 
@@ -185,12 +183,12 @@ class API extends Integration {
 	 * @param $email
 	 */
 	function clear_contact_id_cache( $email ) {
-		delete_transient( 'aw_SendInBlue_contact_id_' . md5( $this->parse_email( $email ) ) );
+		delete_transient( 'aw_StickyBlue_contact_id_' . md5( $this->parse_email( $email ) ) );
 	}
 
 
 	/**
-	 * @param \AutomateWoo\Data_Layer $data_layer
+	 * @param \StickyBlueAutomateWoo\Data_Layer $data_layer
 	 * @param string $type shipping|billing
 	 * @return array
 	 */
@@ -242,7 +240,7 @@ class API extends Integration {
 	 * @return array
 	 */
 	function get_milestones() {
-		if ( $cache = get_transient( 'aw_SendInBlue_milestones' ) )
+		if ( $cache = get_transient( 'aw_StickyBlue_milestones' ) )
 			return $cache;
 
 		$response = $this->request( 'GET' , '/milestone/pipelines' );
@@ -259,7 +257,7 @@ class API extends Integration {
 			}
 		}
 
-		set_transient( 'aw_SendInBlue_milestones', $milestones, MINUTE_IN_SECONDS * 5 );
+		set_transient( 'aw_StickyBlue_milestones', $milestones, MINUTE_IN_SECONDS * 5 );
 
 		return $milestones;
 	}
@@ -271,7 +269,7 @@ class API extends Integration {
 	 */
 	function get_users() {
 
-		if ( $cache = get_transient( 'aw_SendInBlue_users' ) )
+		if ( $cache = get_transient( 'aw_StickyBlue_users' ) )
 			return $cache;
 
 		$response = $this->request( 'GET' , '/users' );
@@ -288,7 +286,7 @@ class API extends Integration {
 			}
 		}
 
-		set_transient( 'aw_SendInBlue_users', $users, MINUTE_IN_SECONDS * 5 );
+		set_transient( 'aw_StickyBlue_users', $users, MINUTE_IN_SECONDS * 5 );
 
 		return $users;
 	}
